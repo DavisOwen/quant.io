@@ -20,11 +20,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+TEST = 'TEST'
+PROD = 'PROD'
+
+
+ENVIRONMENT = os.environ.get('ENVIRONMENT', TEST)
+
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = ENVIRONMENT == TEST
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'fake_key' if DEBUG else os.environ.get('SECRET_KEY')
+
+if DEBUG:
+    import config_test as config
+elif ENVIRONMENT == PROD:
+    import config_prod as config
 
 ALLOWED_HOSTS = []
 
@@ -82,11 +93,15 @@ WSGI_APPLICATION = 'quantio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': config.DB_NAME,
+        'CLIENT': {
+            'host': config.DB_HOST,
+            'username': config.DB_USER,
+            'password': config.DB_PASSWORD,
+        }
     }
 }
 

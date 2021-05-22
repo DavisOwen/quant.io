@@ -1,3 +1,6 @@
 tags
 secret_key.sh
 env
+config_*
+__pycache__/
+*.pyc
