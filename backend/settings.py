@@ -70,7 +70,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'quantio.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATES = [
     {
@@ -88,7 +88,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'quantio.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database
