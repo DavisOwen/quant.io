@@ -3,3 +3,4 @@ secret_key.sh
 config_*
 __pycache__/
 *.pyc
+node_modules
