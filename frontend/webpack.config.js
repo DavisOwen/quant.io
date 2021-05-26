@@ -22,6 +22,7 @@ module.exports = {
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
     contentBase: path.resolve(__dirname, './build'),
-    hot: true
+    hot: true,
+    public: '0.0.0.0'
   }
 }

@@ -1,9 +1,28 @@
 import { loginSuccess, loginLoading, loginFail, logoutSuccess, logoutLoading, logoutFail } from './reducers/session';
 
-const logoutAction = (dispatch) => {
+const loginThunk = (data) => {
+  return (dispatch) => {
+    dispatch(loginLoading());
+
+    fetch("/api/session/login/", {
+      method: 'POST',
+      credentials: "same-origin",
+      body: JSON.stringify(data)
+    }).then(
+      res => res.json()
+    ).then(resp => {
+      console.log(resp)
+      return dispatch(loginSuccess())
+    }).catch(err => {
+      dispatch(loginFail())
+    })
+  }
+}
+
+const logoutThunk = (dispatch) => {
   dispatch(logoutLoading());
   
-  fetch("/session/logout/", {
+  fetch("/api/session/logout/", {
     credentials: "same-origin"
   }).then(
     res => res.json()
@@ -14,3 +33,5 @@ const logoutAction = (dispatch) => {
     dispatch(logoutFail())
   })
 }
+
+export { loginThunk, logoutThunk }

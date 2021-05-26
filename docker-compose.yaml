@@ -13,7 +13,6 @@ services:
     command: npm start
     volumes: 
       - ./frontend:/app
-      - /app/node_modules
     expose:
       - 8080
     environment:
