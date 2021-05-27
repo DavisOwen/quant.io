@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loginThunk } from './actions.js';
+import { loginThunk, registerThunk } from './actions.js';
 
 const Login = () => {
-  const { loginFail } = useSelector(state => state.session);
+  const { loginFail, registerSuccess } = useSelector(state => state.session);
   const dispatch = useDispatch();
   const [credentials, setCredentials] = useState({"username": '', "password": ''});
+  const [register, setRegister] = useState(false);
+
   return (
     <div className="limiter">
       <div className="container-login100">
@@ -14,9 +16,9 @@ const Login = () => {
             <img src="images/img-01.png" alt="IMG" />
           </div>
 
-          <form className="login100-form validate-form" onSubmit={() => dispatch(loginThunk(credentials))}>
+          <form className="login100-form validate-form">
             <span className="login100-form-title">
-              Member Login
+              {register ? "Member Register" : "Member Login"}
             </span>
 
             <div className="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
@@ -38,27 +40,34 @@ const Login = () => {
             <div className="container-login100-form-btn">
               <button type="submit" className="login100-form-btn" onClick={(e) => {
                   e.preventDefault();
-                  dispatch(loginThunk(credentials));
+                  register ? dispatch(registerThunk(credentials)) : dispatch(loginThunk(credentials));
                 }}>
-                Login
+                {register ? "Register" : "Login"}
               </button>
             </div>
 
-            <div className="text-center p-t-12">
-              <span className="txt1">
-                Forgot
-              </span>
-              <a className="txt2" href="#">
-                Username / Password?
-              </a>
-            </div>
+            {!register &&
+              <div className="text-center p-t-12">
+                <span className="txt1">
+                  Forgot
+                </span>
+                <a className="txt2" href="#">
+                  Username / Password?
+                </a>
+              </div>
+            }
 
-            <div className="text-center p-t-136">
-              <a className="txt2" href="#">
-                Create your Account
-                <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-              </a>
-            </div>
+              <div className="text-center p-t-136">
+                {!register && 
+                  <button className="txt2" onClick={(e) => {
+                      e.preventDefault();
+                      setRegister(true);
+                    }}>
+                  Create your Account
+                  <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                  </button>
+                }
+              </div>
           </form>
           <div>
             {loginFail &&

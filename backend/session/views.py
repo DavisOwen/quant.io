@@ -17,14 +17,14 @@ def get_csrf(request):
 
 class SessionView(APIView):
     def post(self, request):
-        data = request.data
+        data = request.data.get('data')
         username = data.get('username')
         password = data.get('password')
 
         if username is None or password is None:
             return JsonResponse(
               {"message": "Please provide username and password"},
-              status=status.HTTP_200_OK
+              status=status.HTTP_400_BAD_REQUEST
             )
 
         user = authenticate(username=username, password=password)

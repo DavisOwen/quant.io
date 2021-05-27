@@ -7,7 +7,7 @@ from rest_framework import status
 class UserView(APIView):
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = UserSerializer(data=request.data.get('data'))
 
         if serializer.is_valid():
             serializer.save()
