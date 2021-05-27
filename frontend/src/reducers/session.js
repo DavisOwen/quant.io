@@ -7,23 +7,25 @@ export const sessionSlice = createSlice({
     logoutLoading: false,
     logoutFail: false,
     loginLoading: false,
-    loginFail: false
+    loginFail: false,
   },
   reducers: {
     loginSuccess: state => {
       state.isAuthenticated = true
     },
     loginLoading: state => {
-      state.loginLoading = true
+      state.loginLoading = true;
+      state.loginFail = false;
     },
-    loginFail: state => {
-      state.loginFail = true
+    loginFail: (state) => {
+      state.loginFail = true;
     },
     logoutSuccess: state => {
       state.isAuthenticated = false
     },
     logoutLoading: state => {
-      state.logoutLoading = true
+      state.logoutLoading = true;
+      state.logoutFail = false;
     },
     logoutFail: state => {
       state.logoutFail = true
