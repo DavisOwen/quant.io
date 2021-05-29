@@ -20,9 +20,9 @@ const App = () => {
     getCSRF();
   }, [])
 
-  const { isAuthenticated, getSessionLoading } = useSelector(state => state.session);
+  const { isAuthenticated, getSessionLoading, logoutLoading, loginLoading, registerLoading } = useSelector(state => state.session);
 
-  if (getSessionLoading) {
+  if (getSessionLoading || logoutLoading || loginLoading || registerLoading) {
     return <LoadingScreen />
   } else if (!isAuthenticated) {
     return <Login /> 

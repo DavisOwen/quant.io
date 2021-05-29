@@ -5,7 +5,7 @@ import { logoutThunk } from './actions.js';
 const Main = () => {
   const dispatch = useDispatch();
   return (
-      <div className="container mt-3">
+      <div className="container mt-3 centerParent">
         <div className="center">
           <h1>Quant.io</h1>
           <p>You are logged in!</p>
