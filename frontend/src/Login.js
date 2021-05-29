@@ -58,15 +58,13 @@ const Login = () => {
             }
 
               <div className="text-center p-t-136">
-                {!register && 
-                  <button className="txt2" onClick={(e) => {
-                      e.preventDefault();
-                      setRegister(true);
-                    }}>
-                  Create your Account
-                  <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-                  </button>
-                }
+                <button className="txt2" onClick={(e) => {
+                    e.preventDefault();
+                    setRegister(!register);
+                  }}>
+                  {register ? "Back to Login" : "Create an Account"}
+                <i className="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                </button>
               </div>
           </form>
           <div>
