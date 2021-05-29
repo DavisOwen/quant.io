@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const sessionSlice = createSlice({
   name: 'session',
   initialState: {
-    isAuthenticated: localStorage.getItem('isAuthenticated') || false,
+    isAuthenticated: false,
     logoutLoading: false,
     logoutFail: false,
     loginLoading: false,
@@ -11,22 +11,21 @@ export const sessionSlice = createSlice({
     registerLoading: false,
     registerSuccess: false,
     registerFail: false,
+    getSessionLoading: true,
   },
   reducers: {
     loginSuccess: state => {
       state.isAuthenticated = true;
-      localStorage.setItem('isAuthenticated', true);
     },
     loginLoading: state => {
       state.loginLoading = true;
       state.loginFail = false;
     },
-    loginFail: (state) => {
+    loginFail: state => {
       state.loginFail = true;
     },
     logoutSuccess: state => {
       state.isAuthenticated = false;
-      localStorage.setItem('isAuthenticated', false);
     },
     logoutLoading: state => {
       state.logoutLoading = true;
@@ -38,7 +37,6 @@ export const sessionSlice = createSlice({
     registerSuccess: state => {
       state.registerSuccess = true;
       state.isAuthenticated = true;
-      localStorage.setItem('isAuthenticated', false);
     },
     registerLoading: state => {
       state.registerLoading = true;
@@ -46,10 +44,18 @@ export const sessionSlice = createSlice({
     },
     registerFail: state => {
       state.registerFail = true
+    },
+    getSessionSuccess: (state, action) => {
+      state.isAuthenticated = action.payload;
+      state.getSessionLoading = false;
+    },
+    getSessionFail: state => {
+      state.isAuthenticated = false;
+      state.getSessionLoading = false;
     }
   }
 })
 
-export const { loginSuccess, loginLoading, loginFail, logoutSuccess, logoutLoading, logoutFail, registerSuccess, registerLoading, registerFail  } = sessionSlice.actions
+export const { loginSuccess, loginLoading, loginFail, logoutSuccess, logoutLoading, logoutFail, registerSuccess, registerLoading, registerFail, getSessionSuccess, getSessionFail } = sessionSlice.actions
 
 export default sessionSlice.reducer

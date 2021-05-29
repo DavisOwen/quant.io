@@ -16,6 +16,12 @@ def get_csrf(request):
 
 
 class SessionView(APIView):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            return JsonResponse({'isAuthenticated': False})
+
+        return JsonResponse({'isAuthenticated': True})
+
     def post(self, request):
         data = request.data.get('data')
         username = data.get('username')

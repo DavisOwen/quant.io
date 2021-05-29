@@ -1,4 +1,4 @@
-import { loginSuccess, loginLoading, loginFail, logoutSuccess, logoutLoading, logoutFail, registerLoading, registerSuccess, registerFail } from './reducers/session';
+import { loginSuccess, loginLoading, loginFail, logoutSuccess, logoutLoading, logoutFail, registerLoading, registerSuccess, registerFail, getSessionSuccess, getSessionFail } from './reducers/session';
 import axios from 'axios';
 
 const loginThunk = (data) => {
@@ -41,4 +41,13 @@ const registerThunk = (data) => {
   }
 }
 
-export { loginThunk, logoutThunk, registerThunk }
+const getSessionThunk = (dispatch) => {
+  axios.get("/api/session/")
+    .then(resp => {
+      dispatch(getSessionSuccess(resp.data.isAuthenticated));
+    }).catch(err => {
+      dispatch(getSessionFail());
+    })
+}
+
+export { loginThunk, logoutThunk, registerThunk, getSessionThunk }
