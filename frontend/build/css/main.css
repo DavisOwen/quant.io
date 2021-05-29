@@ -460,3 +460,22 @@ iframe {
     opacity: 1;
   }
 }
+
+.container {
+  height: 100%;
+  width: 100%
+  position: relative;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}

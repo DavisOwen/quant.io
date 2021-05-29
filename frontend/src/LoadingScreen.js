@@ -2,7 +2,9 @@ import React from 'react';
 
 const LoadingScreen = () => {
   return (
-    <div>Loading...</div>
+    <div className="center">
+      <i className="fa fa-cog fa-spin" />
+    </div>
   );
 }
 
